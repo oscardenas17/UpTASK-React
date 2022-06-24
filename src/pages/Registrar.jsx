@@ -61,7 +61,10 @@ const Registrar = () => {
             className="bg-sky-700 w-full mb-5 py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-sky-800 transitios-colors"
         />
 
-        <nav className='lg:flex lg:justify-between'>
+      </form>
+
+      
+      <nav className='lg:flex lg:justify-between'>
           <Link
             className='block text-center my-5 text-slate-500 uppercase text-sm'
             to="/"
@@ -72,8 +75,7 @@ const Registrar = () => {
             to="/olvide-password"
           >Olvide Mi Contraseña</Link>
         </nav>
-
-      </form>
+        
     </>
   )
 }
