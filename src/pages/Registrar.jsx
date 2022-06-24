@@ -25,6 +25,30 @@ const Registrar = () => {
       })
       return//despues de setear la alerte- para que no se continue ejecutando code
     }
+
+    //Validar el password 
+    if(password !== repetirPassword){
+      setAlerta({
+        msg: 'Las contraseñas no son iguales',
+        error: true
+      })
+       return
+    }
+
+     //Validar el password 
+     if(password.length <6){
+      setAlerta({
+        msg: 'La contraseña debe tener minimo 8 caracteres ',
+        error: true
+      })
+       return
+    }
+
+    //Si todo esta bien setAlerta queda como un objeto vacio
+    setAlerta({})
+
+    //Crear Usuario EN API
+    console.log('creando')
   }
 
   const {msg} = alerta;
