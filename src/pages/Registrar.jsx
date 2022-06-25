@@ -26,7 +26,6 @@ const Registrar = () => {
       })
       return//despues de setear la alerte- para que no se continue ejecutando code
     }
-
     //Validar el password 
     if(password !== repetirPassword){
       setAlerta({
@@ -35,18 +34,15 @@ const Registrar = () => {
       })
        return
     }
-
-     //Validar el password 
+     //Validar longitud <de> password 
      if(password.length <6){
       setAlerta({
         msg: 'La contraseña debe tener minimo 8 caracteres ',
         error: true
       })
        return
-    }
-
-    //Si todo esta bien setAlerta queda como un objeto vacio
-    setAlerta({})
+    }   
+    setAlerta({}) //Si todo esta bien setAlerta queda como un objeto vacio
     
 
     //Crear Usuario EN API
@@ -57,6 +53,11 @@ const Registrar = () => {
           msg: data.msg,
           error: false,
         })
+      //Limpiando campos despues de creado el usuario
+      setNombre('')
+      setEmail('')
+      setPassword('')
+      setRepetirPassword('')
       
       //console.log(data.nombre)
     } catch (error) {
