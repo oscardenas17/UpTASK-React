@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import {Link} from 'react-router-dom'
 import Alerta from '../components/Alerta'
+import axios from 'axios'
 
 
 const Registrar = () => {
@@ -14,7 +15,7 @@ const Registrar = () => {
   //State alertas - inicia como un objeto vacio porque tiene clases de erro y un mensaje
   const [alerta, setAlerta] = useState( {} )
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
     
     //Validar que los campos contengan data .includes ''  al array
@@ -46,9 +47,24 @@ const Registrar = () => {
 
     //Si todo esta bien setAlerta queda como un objeto vacio
     setAlerta({})
+    
 
     //Crear Usuario EN API
-    console.log('creando')
+    try {
+      const {data}= await axios.post('http://localhost:4000/api/usuarios',
+        { nombre, email, password })
+        setAlerta({
+          msg: data.msg,
+          error: false,
+        })
+      
+      //console.log(data.nombre)
+    } catch (error) {
+      setAlerta({
+        msg: error.response.data.msg,
+        error: true,
+      })
+    }
   }
 
   const {msg} = alerta;
