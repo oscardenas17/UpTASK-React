@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
 import { useState } from 'react'
 import {Link, useParams} from 'react-router-dom'
-import axios from 'axios'
+import clienteAxios from '../config/clienteAxios'
+//mport axios from 'axios'
 import Alerta from '../components/Alerta'
 
 
@@ -20,14 +21,15 @@ const NuevoPassword = () => {
 
   const comprobarToken = async ()=>{
     try {
-      const {data} = await axios.get(`http://localhost:4000/api/usuarios/olvide-password/${token}`)
+     // const {data} = 
+     await clienteAxios.get(`/usuarios/olvide-password/${token}`)
       setTokenValido(true) //si token es válido, muestra el formulario
     } catch (error) {
       setAlerta({
         msg: error.response.data.msg,
         error:true,
       })
-      setPasswordModificado(true)
+    
     }
   };
 
@@ -41,7 +43,7 @@ const handleSubmit= async (e) =>{
   e.preventDefault();
 
   //validacion
-  if(password.length <= 8){
+  if(password.length < 8){
     setAlerta( {
       msg: 'Contraseña minimo de 8 caracteres',
       error: true,
@@ -50,12 +52,14 @@ const handleSubmit= async (e) =>{
   }
   //enviar peticion al api
   try {
-    const url = `http://localhost:4000/api/usuarios/olvide-password/${token}`
-    const {data} = await axios.post(url, {password} )
+    //const url = `http://localhost:4000/api/usuarios/olvide-password/${token}`
+    const url = `/usuarios/olvide-password/${token}`
+    const {data} = await clienteAxios.post(url, {password} )
     setAlerta({
       msg: data.msg,
       error:false,
   })
+    setPasswordModificado(true)
   } catch (error) {
     setAlerta({
       msg: error.response.data.msg,
