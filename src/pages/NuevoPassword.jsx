@@ -13,8 +13,10 @@ const NuevoPassword = () => {
 
   const [tokenValido, setTokenValido] = useState(false);
   const [alerta, setAlerta] = useState( {} )
+  const [password, setPassword] = useState('')
+  const [passwordModificado, setPasswordModificado] = useState(false)
 
-useEffect(() => {
+  useEffect(() => {
 
   const comprobarToken = async ()=>{
     try {
@@ -24,7 +26,8 @@ useEffect(() => {
       setAlerta({
         msg: error.response.data.msg,
         error:true,
-    })
+      })
+      setPasswordModificado(true)
     }
   };
 
@@ -33,7 +36,34 @@ useEffect(() => {
 
 const {msg} = alerta;
 
-  
+//tomar data con el handelsubmit- validacione
+const handleSubmit= async (e) =>{
+  e.preventDefault();
+
+  //validacion
+  if(password.length <= 8){
+    setAlerta( {
+      msg: 'Contraseña minimo de 8 caracteres',
+      error: true,
+    } )
+    return;  
+  }
+  //enviar peticion al api
+  try {
+    const url = `http://localhost:4000/api/usuarios/olvide-password/${token}`
+    const {data} = await axios.post(url, {password} )
+    setAlerta({
+      msg: data.msg,
+      error:false,
+  })
+  } catch (error) {
+    setAlerta({
+      msg: error.response.data.msg,
+      error:true,
+  })
+  }
+
+}
   
 
   return (
@@ -47,7 +77,9 @@ const {msg} = alerta;
 
 {/* Token valido */}
    { tokenValido && (
-       <form action="" className="my-10 bg-white shadow rounded-lg p-10">
+       <form action="" className="my-10 bg-white shadow rounded-lg p-10"
+              onSubmit={handleSubmit}
+       >
 
     
        <div className="my-5">
@@ -58,6 +90,8 @@ const {msg} = alerta;
            name="password" 
            placeholder="Escribe tu nueva contraseña" 
            className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
+           value={password}
+           onChange={ e => setPassword(e.target.value) }
          />
        </div>
  
@@ -70,17 +104,12 @@ const {msg} = alerta;
      </form>
    )}
 
-    <nav className='lg:flex lg:justify-between'>
-        <Link
-          className='block text-center my-5 text-slate-500 uppercase text-sm'
-          to="/"
-        >¿Ya tienes una cuenta? Inicia Sesión</Link>
-
-        <Link
-          className='block text-center my-5 text-slate-500 uppercase text-sm'
-          to="/olvide-password"
-        >Olvide Mi Contraseña</Link>
-      </nav>
+        {passwordModificado && (
+           <Link
+           className='block text-center my-5 text-slate-500 uppercase text-sm'
+           to="/"
+         >Inicia Sesión</Link>
+        )}
   </>
   )
 }
