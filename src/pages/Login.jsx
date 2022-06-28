@@ -11,7 +11,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [alerta, setAlerta] = useState( {} );
 
-  const {} = useAuth();
+  const {setAuth} = useAuth();
 
   const handleSubmit = async e=>{
     e.preventDefault();
@@ -29,6 +29,9 @@ const Login = () => {
       const {data} = await clienteAxios.post('/usuarios/login', {email, password} ) 
       setAlerta( {} )
       localStorage.setItem('token', data.token)
+
+      //context de logeo de usuario
+      setAuth(data)
 
       console.log(data);
     } catch (error) {
