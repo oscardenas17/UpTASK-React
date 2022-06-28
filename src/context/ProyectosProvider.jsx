@@ -20,4 +20,4 @@ export {
   ProyectosProvider
 }
 
-export default ProyectosContext
+export default ProyectosProvider
