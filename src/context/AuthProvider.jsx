@@ -11,7 +11,7 @@ const AuthProvider = ( {children} ) => {
     //state para almacenar auth de usuarios
     const [auth, setAuth] = useState( {  } );
 
-    //va a comprobar si hay un token en local storage
+    //va a comprobar si hay un token en local storage, para enviarlo al api e intentar autenticar al usuario
     useEffect(() => {  
         const autenticarUsuario = async () =>{
             const token = localStorage.getItem( 'token' );
@@ -42,6 +42,7 @@ const AuthProvider = ( {children} ) => {
     return(
         <AuthContext.Provider 
             value={ {  
+                auth,
                 setAuth
              }}
         >

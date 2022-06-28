@@ -7,6 +7,10 @@ import OlvidePassword from './pages/OlvidePassword';
 import Registrar from './pages/Registrar';
 
 import { AuthProvider } from './context/AuthProvider';
+import RutaProtegida from './layouts/RutaProtegida';
+import Proyectos from './pages/Proyectos';
+
+
 
 
 function App() {
@@ -26,10 +30,15 @@ function App() {
 
           <Route path='olvide-password'  element={ <OlvidePassword/> }/>
           <Route path='olvide-password/:token'  element={ <NuevoPassword/> }/>
-          <Route path='confirmar/:id'  element={ <ConfirmarCuenta/> }/>
-       
+          <Route path='confirmar/:id'  element={ <ConfirmarCuenta/> }/>       
 
         </Route>
+
+        {/* rutas para area privada, validando inicio de sesion */}
+        <Route path='/proyectos' element={ <RutaProtegida/> }>
+          <Route index element={ <Proyectos/> } />
+        </Route>  
+
       </Routes>
       
      </AuthProvider>
