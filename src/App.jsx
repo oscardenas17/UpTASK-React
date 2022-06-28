@@ -9,6 +9,7 @@ import Registrar from './pages/Registrar';
 import { AuthProvider } from './context/AuthProvider';
 import RutaProtegida from './layouts/RutaProtegida';
 import Proyectos from './pages/Proyectos';
+import NuevoProyecto from './pages/NuevoProyecto';
 
 
 
@@ -37,6 +38,7 @@ function App() {
         {/* rutas para area privada, validando inicio de sesion */}
         <Route path='/proyectos' element={ <RutaProtegida/> }>
           <Route index element={ <Proyectos/> } />
+          <Route path="crear-proyecto" element={ <NuevoProyecto/> }  />
         </Route>  
 
       </Routes>
