@@ -32,8 +32,8 @@ const Login = () => {
 
       //context de logeo de usuario
       setAuth(data)
+      //console.log(data);
 
-      console.log(data);
     } catch (error) {
       setAlerta( {
         msg: error.response.data.msg,
