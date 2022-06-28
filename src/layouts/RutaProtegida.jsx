@@ -3,11 +3,12 @@ import useAuth from "../hooks/useAuth";
 
 const RutaProtegida = () => {
 
-    const {auth}= useAuth();    
-    console.log(auth)
+    const {auth, cargando}= useAuth();    
+    //console.log(auth)
+    if(cargando) return 'cargando...'
   return (
     <>
-        {auth._id ? 'Aut' : <Navigate to="/" />}  
+        {auth._id ? <Outlet/> : <Navigate to="/" />}  
     </>
   )
 }
