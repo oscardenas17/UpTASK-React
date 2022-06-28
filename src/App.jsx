@@ -6,13 +6,17 @@ import NuevoPassword from './pages/NuevoPassword';
 import OlvidePassword from './pages/OlvidePassword';
 import Registrar from './pages/Registrar';
 
+import { AuthProvider } from './context/AuthProvider';
+
 
 function App() {
 
 
   return (
     <BrowserRouter>
-      <Routes>
+     <AuthProvider>
+
+     <Routes>
         <Route path='/' element={ <AuthLayout/> } >
          
          {/* area publica */}
@@ -27,6 +31,8 @@ function App() {
 
         </Route>
       </Routes>
+      
+     </AuthProvider>
     </BrowserRouter>
   )
 }
