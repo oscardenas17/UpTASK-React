@@ -13,7 +13,7 @@ const FormularioProyecto = () => {
 
     const {mostrarAlerta, alerta, submitProyecto} = useProyectos();
 
-    const handleSubmit =(e)=>{
+    const handleSubmit = async (e)=>{
         e.preventDefault();
         
         
@@ -26,8 +26,14 @@ const FormularioProyecto = () => {
             return
         }
         
-    //Pasar los datos hacia el Provider
-    submitProyecto({nombre,descripcion,fechaEntrega,cliente})
+    //Pasar los datos hacia el Provider / await y despues resetear form
+    await submitProyecto({nombre,descripcion,fechaEntrega,cliente})
+
+    setNombre('')
+    setDescripcion('')
+    setFechaEntrega('')
+    setCliente('')
+    
     } 
 
     const {msg} = alerta  //se extrae el msg de alerta del state
