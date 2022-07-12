@@ -14,12 +14,12 @@ const Header = () => {
                     className="font-bold uppercase"
                 > Proyectos </Link> 
 
-            <button
-                type="button"
-                className="text-white text-sm bg-sky-600 p-3 rounded-md uppercase font-bold"
-            >
-                Cerrar Sesión
-            </button>
+                <button
+                    type="button"
+                    className="text-white text-sm bg-sky-600 p-3 rounded-md uppercase font-bold"
+                >
+                    Cerrar Sesión
+                </button>
 
             </div>
 
