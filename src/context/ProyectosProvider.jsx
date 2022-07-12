@@ -12,6 +12,34 @@ const ProyectosProvider = ( {children} ) => {
 
   const navigate = useNavigate();
 
+
+  //Obtener proyectos para listado
+  useEffect(() => {
+    const obtenerProyectos = async () => {
+      try {
+        //EXTRAER TOKENES
+        const token = localStorage. getItem('token');
+        if(!token){return} 
+
+        const config = {
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+        };
+        //traer proyectos 
+        const {data} = await clienteAxios('/proyectos', config)
+        //console.log(data);
+        //colocar en el state los proyectos, usamos el setproyectos
+        setProyectos(data)
+      } catch (error) {
+        
+      }
+    }
+    return  ()=>  obtenerProyectos()
+
+  }, []);
+
   const mostrarAlerta= (alerta)=>{
     setAlerta(alerta)
 
