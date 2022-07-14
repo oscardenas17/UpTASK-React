@@ -41,7 +41,7 @@ const AuthProvider = ( {children} ) => {
                 const {data}= await clienteAxios('/usuarios/perfil', config)
                 //console.log(data);
                 setAuth(data);
-                navigate('/proyectos') //si el usuario tiene su sesion ok, ir a proyectos
+                //navigate('/proyectos') //si el usuario tiene su sesion ok, ir a proyectos
             } catch (error) {
                 //si hay algo previo y expira el token
                 setAuth( {} );

@@ -85,13 +85,36 @@ const ProyectosProvider = ( {children} ) => {
     }
   };
 
+
+  //Obtener informacion de un proyecto por su ID - hacer disponible en proyecto para llamarlo
+  const obtenerProyecto = async (id) => {
+    //console.log(id);
+    try {
+      const token = localStorage. getItem('token');
+      if(!token){return} 
+
+      const config = {
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+         },
+      };
+
+      const {data} = await clienteAxios(`/proyectos/${id}`, config)
+      console.log(data);
+    } catch (error) {
+      console.log(error); //
+    }
+  }
+
   return (
     <ProyectosContext.Provider 
       value={{ 
         proyectos,
         mostrarAlerta,
         alerta,
-        submitProyecto
+        submitProyecto,
+        obtenerProyecto//para llamarla en proyecto
        }}
     >
       {children}
