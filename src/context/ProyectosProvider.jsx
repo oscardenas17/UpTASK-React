@@ -8,7 +8,10 @@ const ProyectosContext = createContext();
 const ProyectosProvider = ( {children} ) => {
 
   const [proyectos, setProyectos] = useState([]);
-  const [alerta, setAlerta] = useState([]);
+  const [alerta, setAlerta] = useState({});
+  const [proyecto, setProyecto] = useState({});
+  const [cargando, setCargando] = useState(false);
+
 
   const navigate = useNavigate();
 
@@ -16,6 +19,7 @@ const ProyectosProvider = ( {children} ) => {
   //Obtener proyectos para listado
   useEffect(() => {
     const obtenerProyectos = async () => {
+     
       try {
         //EXTRAER TOKENES
         const token = localStorage. getItem('token');
@@ -33,7 +37,7 @@ const ProyectosProvider = ( {children} ) => {
         //colocar en el state los proyectos, usamos el setproyectos
         setProyectos(data)
       } catch (error) {
-        
+        console.log(error);
       }
     }
     return  ()=>  obtenerProyectos()
@@ -89,6 +93,7 @@ const ProyectosProvider = ( {children} ) => {
   //Obtener informacion de un proyecto por su ID - hacer disponible en proyecto para llamarlo
   const obtenerProyecto = async (id) => {
     //console.log(id);
+    setCargando(true)
     try {
       const token = localStorage. getItem('token');
       if(!token){return} 
@@ -101,9 +106,13 @@ const ProyectosProvider = ( {children} ) => {
       };
 
       const {data} = await clienteAxios(`/proyectos/${id}`, config)
-      console.log(data);
+      //Mostrando Informacion de un proyecto
+      setProyecto(data)  //coin esto hacer disponible proyecto en el provider
+      //console.log(data);
     } catch (error) {
       console.log(error); //
+    }finally{
+      setCargando(false)  //pasar el cargando disponible para los demas pages
     }
   }
 
@@ -114,7 +123,9 @@ const ProyectosProvider = ( {children} ) => {
         mostrarAlerta,
         alerta,
         submitProyecto,
-        obtenerProyecto//para llamarla en proyecto
+        obtenerProyecto,//para llamarla en proyecto
+        proyecto, //mostrar informacion de un proyecto, se extare en proyecto por el useProyectos
+        cargando   //se extrae en proyecto
        }}
     >
       {children}

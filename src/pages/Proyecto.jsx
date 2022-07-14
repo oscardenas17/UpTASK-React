@@ -8,14 +8,24 @@ const Proyecto = () => {
   const params = useParams();
   //console.log(params)
 
-  const {obtenerProyecto} =useProyectos();
+  const {obtenerProyecto, proyecto, cargando} =useProyectos();
 
   useEffect(() => {
    return()=> obtenerProyecto(params.id)
   }, []);
+  //console.log(proyecto)
 
+  const {nombre} = proyecto
   return (
-    <div>Proyecto</div>
+    cargando ? '...' : (
+      <div>
+        
+        <h1 className="font-black text-4xl">{nombre}</h1>
+
+
+      </div>
+    )
+    
   )
 }
 
