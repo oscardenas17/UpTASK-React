@@ -51,6 +51,10 @@ const ProyectosProvider = ( {children} ) => {
   //Interactuar con la API para consumir y enviar data de proyectos
   const submitProyecto= async proyecto =>{
     //console.log(proyecto); //datos que vienen desde el formProyecto
+
+    //mostrar proyecto creado en la lista, copia proyectos actuales con ...proyectos y se añade otro con data
+  
+
     try {
       //EXTRAER TOKENES
       const token = localStorage. getItem('token');
@@ -64,8 +68,8 @@ const ProyectosProvider = ( {children} ) => {
       };
 
       const {data} = await clienteAxios.post('/proyectos', proyecto, config)
-      console.log(data)
-
+      //console.log(data)
+      setProyectos([...proyectos, data])
       setAlerta({
         msg: 'Proyecto Creado',
         error: false

@@ -21,5 +21,5 @@ const PreviewProyecto = ( {proyecto} ) => {
     </div>
   )
 }
-
+ 
 export default PreviewProyecto
