@@ -1,9 +1,10 @@
+import axios from 'axios';
 import { useState } from 'react';
 import {Link, useNavigate} from 'react-router-dom'
 import Alerta from '../components/Alerta';
 import clienteAxios from '../config/clienteAxios';
 
-import useAuth from '../hooks/useAuth';
+import useAuth from '../hooks/useAuth';//importar el hook, llama la funcion useAuth, valida el context para extraer datos del authprovider
 
 const Login = () => {
 
@@ -17,30 +18,33 @@ const Login = () => {
   const handleSubmit = async e=>{
     e.preventDefault();
 
+
+
     if ([email, password].includes('') ){
       setAlerta( {
         msg: 'Todos los campos son obligatorios',
         error: true,
       } )
-
       return;
     };
 
+
+
+    //autenticando al usuario
     try {
       const {data} = await clienteAxios.post('/usuarios/login', {email, password} ) 
+      //const {data} = await axios.post('http://localhost:4000/api/usuarios/login', {email, password} ) 
+      
       setAlerta( {} )
       localStorage.setItem('token', data.token)
-
       //context de logeo de usuario
       setAuth(data)
       //console.log(data);
-
     } catch (error) {
       setAlerta( {
         msg: error.response.data.msg,
         error: true,
-      } )
-     
+      } )     
     }
 
   };
