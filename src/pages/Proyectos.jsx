@@ -1,18 +1,13 @@
 import PreviewProyecto from "../components/PreviewProyecto";
 import useProyectos from "../hooks/useProyectos"
-import io from 'socket.io-client';
-import { useEffect } from "react";
 
-let socket;
 
 
 const Proyectos = () => {
 
   const {proyectos} = useProyectos()
 
-  useEffect(() => {
-    socket = io(import.meta.env.VITE_BACKEND_URL)
-  }, []);
+
 
   
 
