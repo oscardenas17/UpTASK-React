@@ -7,7 +7,7 @@ const Proyecto = () => {
   const params = useParams();
   //console.log(params)
 
-  const { obtenerProyecto, proyecto, cargando } = useProyectos();
+  const { obtenerProyecto, proyecto, cargando, handleModalTarea } = useProyectos();
 
   const [modal, setModal] = useState(false);
 
@@ -26,7 +26,7 @@ const Proyecto = () => {
 
       <button
       // llamar modal
-      onClick={ () => setModal(true)}
+      onClick={ handleModalTarea}
         type="button"
         className="text-sm px-5 py-3 w-full md:w-auto rounded-lg uppercase font-bold bg-sky-400 text-white text-center mt-5 flex gap-2 items-center justify-center "
       >

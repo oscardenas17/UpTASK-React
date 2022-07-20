@@ -12,7 +12,8 @@ const ProyectosProvider = ( {children} ) => {
   const [proyecto, setProyecto] = useState({});
   const [cargando, setCargando] = useState(false);
 
-console.log(proyecto);
+  const [modalFormularioTarea, setModalFormularioTarea] = useState(false);  
+
   const navigate = useNavigate();
 
 
@@ -119,6 +120,12 @@ console.log(proyecto);
     }
   }
 
+
+  //Pasar modal 
+  const handleModalTarea =  () => { 
+    setModalFormularioTarea(!modalFormularioTarea)
+  }
+
   return (
     <ProyectosContext.Provider 
       value={{ 
@@ -128,8 +135,10 @@ console.log(proyecto);
         submitProyecto,
         obtenerProyecto,//para llamarla en proyecto
         proyecto, //mostrar informacion de un proyecto, se extare en proyecto por el useProyectos
-        cargando   //se extrae en proyecto
-       }}
+        cargando,   //se extrae en proyecto
+        modalFormularioTarea, //leer si esta true o false
+        handleModalTarea
+      }}
     >
       {children}
     </ProyectosContext.Provider >
