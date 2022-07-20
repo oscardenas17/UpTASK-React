@@ -5,19 +5,20 @@ import ModalFormularioTarea from "../components/ModalFormularioTarea";
 
 const Proyecto = () => {
   const params = useParams();
-  //console.log(params)
+ //console.log(params.id) 
 
   const { obtenerProyecto, proyecto, cargando, handleModalTarea } = useProyectos();
 
   const [modal, setModal] = useState(false);
 
   useEffect(() => {
-    return () => obtenerProyecto(params.id);
+   obtenerProyecto(params.id);
+   
   }, []);
-  console.log(proyecto.nombre);
+   
 
   const { nombre } = proyecto;
-  console.log(nombre);
+ console.log('proyuecti',nombre)
   return cargando ? (
     "..."
   ) : (

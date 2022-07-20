@@ -10,7 +10,7 @@ const ProyectosProvider = ({ children }) => {
   const [alerta, setAlerta] = useState({});
   const [proyecto, setProyecto] = useState({});
   const [cargando, setCargando] = useState(false);
-
+  
   const [modalFormularioTarea, setModalFormularioTarea] = useState(false);
 
   const navigate = useNavigate();
@@ -92,7 +92,7 @@ const ProyectosProvider = ({ children }) => {
   };
 
   //Obtener informacion de un proyecto por su ID - hacer disponible en proyecto para llamarlo
-  const obtenerProyecto = async (id) => {
+  const obtenerProyecto = async id => {
     //console.log(id);
     setCargando(true);
     try {
@@ -104,15 +104,15 @@ const ProyectosProvider = ({ children }) => {
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+          Authorization: `Bearer ${token}`
+        }
       };
 
       const { data } = await clienteAxios(`/proyectos/${id}`, config);
       //Mostrando Informacion de un proyecto
       setProyecto(data);
-      console.log(data); //coin esto hacer disponible proyecto en el provider
-      console.log(proyecto);
+      console.log(data); //con esto hacer disponible proyecto en el provider
+      
     } catch (error) {
       console.log(error); //
     } finally {
