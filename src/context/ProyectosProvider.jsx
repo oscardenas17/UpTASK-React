@@ -12,7 +12,7 @@ const ProyectosProvider = ( {children} ) => {
   const [proyecto, setProyecto] = useState({});
   const [cargando, setCargando] = useState(false);
 
-
+console.log(proyecto);
   const navigate = useNavigate();
 
 
@@ -40,7 +40,8 @@ const ProyectosProvider = ( {children} ) => {
         console.log(error);
       }
     }
-    return  ()=>  obtenerProyectos()
+    //return  ()=> 
+     obtenerProyectos()
 
   }, []);
 
@@ -58,7 +59,6 @@ const ProyectosProvider = ( {children} ) => {
 
     //mostrar proyecto creado en la lista, copia proyectos actuales con ...proyectos y se añade otro con data
   
-
     try {
       //EXTRAER TOKENES
       const token = localStorage. getItem('token');
@@ -96,7 +96,9 @@ const ProyectosProvider = ( {children} ) => {
     setCargando(true)
     try {
       const token = localStorage. getItem('token');
-      if(!token){return} 
+      if(!token){
+        return
+      } 
 
       const config = {
         headers: { 
@@ -107,8 +109,9 @@ const ProyectosProvider = ( {children} ) => {
 
       const {data} = await clienteAxios(`/proyectos/${id}`, config)
       //Mostrando Informacion de un proyecto
-      setProyecto(data)  //coin esto hacer disponible proyecto en el provider
-      //console.log(data);
+      setProyecto(data) 
+      console.log(data); //coin esto hacer disponible proyecto en el provider
+      console.log(proyecto);
     } catch (error) {
       console.log(error); //
     }finally{
