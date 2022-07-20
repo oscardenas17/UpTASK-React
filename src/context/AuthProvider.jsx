@@ -25,6 +25,8 @@ const AuthProvider = ( {children} ) => {
             //console.log(token);
             if(!token){
                 setCargando(false);
+                if(!cargando){ window.location.replace('');}
+                
                 return;                
             }
             //console.log('si hay token');
@@ -41,13 +43,16 @@ const AuthProvider = ( {children} ) => {
                 //console.log(data);
                 setAuth(data);
                 navigate("/proyectos") //si el usuario tiene su sesion ok, ir a proyectos
+                setCargando(false);
+               
+                
             } catch (error) {
                 //si hay algo previo y expira el token
                 setAuth( {} );
-            }finally {
-                setCargando(false);
-            }
-           
+             }finally {
+               
+             }            
+           setCargando(false)                      
         }
          autenticarUsuario();
     },[]    );
