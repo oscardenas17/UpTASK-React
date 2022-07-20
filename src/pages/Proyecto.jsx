@@ -4,19 +4,40 @@ import useProyectos from "../hooks/useProyectos";
 import ModalFormularioTarea from "../components/ModalFormularioTarea";
 import Tarea from "../components/Tarea";
 
+//SOCKET
+import io from 'socket.io-client'
+let socket;
+//SOCKET
+
 
 const Proyecto = () => {
   const params = useParams();
  //console.log(params.id) 
 
-  const { obtenerProyecto, proyecto, cargando, handleModalTarea } = useProyectos()
+  const { obtenerProyecto, proyecto, cargando, handleModalTarea, submitTareasProyecto } = useProyectos()
 console.log('proyecto.tareas',proyecto.nombre)
   const [modal, setModal] = useState(false);
 
   useEffect(() => {
-   obtenerProyecto(params.id);
-   
+   obtenerProyecto(params.id);   
   }, []);
+
+  //SOCKET
+  useEffect(() => {
+    socket= io(import.meta.env.VITE_BACKEND_URL)
+    socket.emit('abrir proyecto', params.id)
+  }, []);
+
+
+  useEffect(() => {
+    socket.on('tarea agregada', tareaNueva=>{
+      console.log('se recibe sokcet nueva tgarea',tareaNueva)
+      submitTareasProyecto(tareaNueva)
+    })
+  }, []);
+
+  //SOCKET
+
    
 
   const { nombre } = proyecto;

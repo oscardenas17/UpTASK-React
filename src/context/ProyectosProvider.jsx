@@ -2,6 +2,12 @@ import { useState, useEffect, createContext } from "react";
 import clienteAxios from "../config/clienteAxios";
 import { useNavigate } from "react-router-dom";
 
+
+//socket
+import io from 'socket.io-client' 
+let socket;
+//socket
+
 //Crearl el Context
 const ProyectosContext = createContext();
 
@@ -43,6 +49,16 @@ const ProyectosProvider = ({ children }) => {
     //return  ()=>
     obtenerProyectos();
   }, []);
+
+
+
+  //SOCKET ==========================
+    useEffect(() => {
+      socket = io(import.meta.env.VITE_BACKEND_URL)
+    }, []);
+
+    //SOCKET ==========================
+
 
   const mostrarAlerta = (alerta) => {
     setAlerta(alerta);
@@ -148,10 +164,24 @@ const ProyectosProvider = ({ children }) => {
       }
       const {data} = await clienteAxios.post('/tareas', tarea, config)
       console.log(data);
+
+      
+  //SOCKET ==========================
+      socket.emit('nueva tarea', data)      
+  //SOCKET ==========================
+
     } catch (error) {
       console.log(error)
     }
   };
+
+  
+  //SOCKET ==========================
+    const submitTareasProyecto = (tarea)=>{
+
+    }
+
+  //SOCKET ==========================
 
   return (
     <ProyectosContext.Provider
@@ -166,6 +196,7 @@ const ProyectosProvider = ({ children }) => {
         modalFormularioTarea, //leer si esta true o false
         handleModalTarea,
         submitTarea,
+        submitTareasProyecto
       }}
     >
       {children}
