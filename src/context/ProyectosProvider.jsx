@@ -96,7 +96,7 @@ const ProyectosProvider = ({ children }) => {
     //console.log(id);
     setCargando(true);
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       if (!token) {
         return;
       }
@@ -111,10 +111,15 @@ const ProyectosProvider = ({ children }) => {
       const { data } = await clienteAxios(`/proyectos/${id}`, config);
       //Mostrando Informacion de un proyecto
       setProyecto(data);
-      console.log(data); //con esto hacer disponible proyecto en el provider
+      //console.log(data); //con esto hacer disponible proyecto en el provider
       
     } catch (error) {
       console.log(error); //
+      // navigate('/proyectos')
+      //       setAlerta({
+      //           msg: error.response.data.msg,
+      //           error: true
+      //       })
     } finally {
       setCargando(false); //pasar el cargando disponible para los demas pages
     }
@@ -123,6 +128,7 @@ const ProyectosProvider = ({ children }) => {
   //Pasar modal
   const handleModalTarea = () => {
     setModalFormularioTarea(!modalFormularioTarea);
+   
   };
 
   //SubmitTarea modal
