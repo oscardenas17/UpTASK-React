@@ -1,8 +1,9 @@
-//npm install @headlessui/react  
+//npm install @headlessui/react
 import { Fragment, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import useProyectos from '../hooks/useProyectos'
 import Alerta from './Alerta'
+import { useParams } from 'react-router-dom'
 
 
 const PRIORIDAD = ['Baja','Media','Alta']
@@ -14,9 +15,13 @@ const ModalFormularioTarea = () => {
     const [fechaEntrega, setFechaEntrega] = useState('');
     const [prioridad, setPrioridad] = useState('');
 
+    //para obtener el id del proyecto
+    const params = useParams();
+    // console.log(params)
 
-    const {modalFormularioTarea, handleModalTarea, mostrarAlerta, alerta, submitTarea} = useProyectos()  
-    
+
+    const {modalFormularioTarea, handleModalTarea, mostrarAlerta, alerta, submitTarea} = useProyectos()
+
 
     const handleSubmit = e =>{
         e.preventDefault();
@@ -28,9 +33,9 @@ const ModalFormularioTarea = () => {
             return
         }
 
-       submitTarea({nombre, descripcion, fechaEntrega,prioridad})
-  
-  
+       submitTarea({nombre, descripcion, fechaEntrega,prioridad, proyecto: params.id})
+
+
 
     }
 
@@ -50,8 +55,8 @@ const ModalFormularioTarea = () => {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <Dialog.Overlay 
-                            className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" 
+                        <Dialog.Overlay
+                            className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
                         />
                     </Transition.Child>
 
@@ -82,7 +87,7 @@ const ModalFormularioTarea = () => {
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                                     </svg>
-                                </button> 
+                                </button>
                             </div>
 
 
@@ -114,7 +119,7 @@ const ModalFormularioTarea = () => {
                                                 />
                                             </div>
 
-                                            
+
 
                                             <div className='mb-5'>
                                                 <label htmlFor="descripcion" className="text-gray-700 uppercase font-bold text-sm">
@@ -134,7 +139,7 @@ const ModalFormularioTarea = () => {
                                                     Fecha entrega
                                                 </label>
                                                 <input type="date"
-                                                    id='fecha-entrega'                                               
+                                                    id='fecha-entrega'
                                                     className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md'
                                                     value={fechaEntrega}
                                                     onChange={e => setFechaEntrega(e.target.value)}
@@ -146,18 +151,18 @@ const ModalFormularioTarea = () => {
                                                 <label htmlFor="prioridad" className="text-gray-700 uppercase font-bold text-sm">
                                                 Prioridad
                                                 </label>
-                                                <select 
-                                                    id='prioridad'                                         
+                                                <select
+                                                    id='prioridad'
                                                     className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md'
                                                     value={prioridad}
                                                     onChange={e => setPrioridad(e.target.value)}
                                                 >
                                                     <option value="">--Seleccionar</option>
-                                                 
+
                                                        {PRIORIDAD.map(opcion => (
                                                         <option key={opcion} >{opcion}</option>
-                                                       ) )} 
-                                                   
+                                                       ) )}
+
 
                                                 </select>
                                             </div>
