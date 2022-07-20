@@ -117,6 +117,13 @@ const ModalFormularioTarea = () => {
                                                 </select>
                                             </div>
 
+
+                                            <input type="submit"
+                                                className='bg-sky-600 hover:bg-sky-700 w-full p-3 cursor-pointer transition-colors rounded text-sm text-white uppercase font-bold'
+                                                value="Crear Tarea"
+                                            />
+
+
                                         </form>
 
 
