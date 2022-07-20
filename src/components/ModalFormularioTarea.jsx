@@ -4,9 +4,15 @@ import { Dialog, Transition } from '@headlessui/react'
 import useProyectos from '../hooks/useProyectos'
 
 
+const PRIORIDAD = ['Baja','Media','Alta']
 
 const ModalFormularioTarea = () => {
-    
+
+    const [nombre, setNombre] = useState('');
+    const [descripcion, setDescripcion] = useState('');
+    const [prioridad, setPrioridad] = useState('');
+
+
     const {modalFormularioTarea, handleModalTarea} = useProyectos()   
     return (
         <Transition.Root show={modalFormularioTarea  } as={Fragment}>
@@ -60,9 +66,60 @@ const ModalFormularioTarea = () => {
                             <div className="sm:flex sm:items-start">
                                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                                     <Dialog.Title as="h3" className="text-lg leading-6 font-bold text-gray-900">
-                                        <p>Titulo</p>
+                                        Crear Tarea
                                     </Dialog.Title>
-                                    <p>Contenido</p>
+
+                                        <form action="" className='my-10'>
+
+                                            <div className='mb-5'>
+                                                <label htmlFor="nombre" className="text-gray-700 uppercase font-bold text-sm">
+                                                    Nombre Tarea
+                                                </label>
+                                                <input type="text"
+                                                    id='nombre'
+                                                    placeholder='Nombre Tarea'
+                                                    className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                                                    value={nombre}
+                                                    onChange={e => setNombre(e.target.value)}
+                                                />
+                                            </div>
+
+                                            <div className='mb-5'>
+                                                <label htmlFor="descripcion" className="text-gray-700 uppercase font-bold text-sm">
+                                                Descripción de la Tarea
+                                                </label>
+                                                <textarea type="text"
+                                                    id='descripcion'
+                                                    placeholder='Descripcion'
+                                                    className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                                                    value={descripcion}
+                                                    onChange={e => setDescripcion(e.target.value)}
+                                                />
+                                            </div>
+
+                                            <div className='mb-5'>
+                                                <label htmlFor="prioridad" className="text-gray-700 uppercase font-bold text-sm">
+                                                Prioridad
+                                                </label>
+                                                <select 
+                                                    id='prioridad'                                         
+                                                    className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                                                    value={prioridad}
+                                                    onChange={e => setPrioridad(e.target.value)}
+                                                >
+                                                    <option value="">--Seleccionar</option>
+                                                 
+                                                       {PRIORIDAD.map(opcion => (
+                                                        <option key={opcion} >{opcion}</option>
+                                                       ) )} 
+                                                   
+
+                                                </select>
+                                            </div>
+
+                                        </form>
+
+
                                 </div>
                             </div>
                         </div>
