@@ -15,6 +15,10 @@ const Login = () => {
   const { setAuth} = useAuth();
 
 
+  //para redirecciona la pagina despues  de introducir la contraseña
+const navigate = useNavigate();
+
+
   const handleSubmit = async e=>{
     e.preventDefault();
 
@@ -39,8 +43,11 @@ const Login = () => {
       localStorage.setItem('token', data.token)
       //context de logeo de usuario
       setAuth(data)
-      //console.log(data);
+      navigate('/proyectos')
+      
     } catch (error) {
+      console.log(error);
+
       setAlerta( {
         msg: error.response.data.msg,
         error: true,
