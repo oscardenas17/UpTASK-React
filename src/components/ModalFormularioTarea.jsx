@@ -2,6 +2,7 @@
 import { Fragment, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import useProyectos from '../hooks/useProyectos'
+import Alerta from './Alerta'
 
 
 const PRIORIDAD = ['Baja','Media','Alta']
@@ -10,10 +11,32 @@ const ModalFormularioTarea = () => {
 
     const [nombre, setNombre] = useState('');
     const [descripcion, setDescripcion] = useState('');
+    const [fechaEntrega, setFechaEntrega] = useState('');
     const [prioridad, setPrioridad] = useState('');
 
 
-    const {modalFormularioTarea, handleModalTarea} = useProyectos()   
+    const {modalFormularioTarea, handleModalTarea, mostrarAlerta, alerta, submitTarea} = useProyectos()  
+    
+
+    const handleSubmit = e =>{
+        e.preventDefault();
+        if([nombre, descripcion,fechaEntrega, prioridad].includes('')){
+            mostrarAlerta({
+                msg: 'Todos los campos son obligatorios',
+                error: true
+            })
+            return
+        }
+
+       submitTarea({nombre, descripcion, fechaEntrega,prioridad})
+  
+  
+
+    }
+
+    const {msg} = alerta
+
+
     return (
         <Transition.Root show={modalFormularioTarea  } as={Fragment}>
             <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={ handleModalTarea }>
@@ -69,7 +92,14 @@ const ModalFormularioTarea = () => {
                                         Crear Tarea
                                     </Dialog.Title>
 
-                                        <form action="" className='my-10'>
+                                {
+                                    msg && <Alerta alerta={alerta} / >
+                                }
+
+
+                                        <form action="" className='my-10'
+                                            onSubmit={handleSubmit}
+                                        >
 
                                             <div className='mb-5'>
                                                 <label htmlFor="nombre" className="text-gray-700 uppercase font-bold text-sm">
@@ -84,6 +114,8 @@ const ModalFormularioTarea = () => {
                                                 />
                                             </div>
 
+                                            
+
                                             <div className='mb-5'>
                                                 <label htmlFor="descripcion" className="text-gray-700 uppercase font-bold text-sm">
                                                 Descripción de la Tarea
@@ -96,6 +128,19 @@ const ModalFormularioTarea = () => {
                                                     onChange={e => setDescripcion(e.target.value)}
                                                 />
                                             </div>
+
+                                            <div className='mb-5'>
+                                                <label htmlFor="fecha-entrega" className="text-gray-700 uppercase font-bold text-sm">
+                                                    Fecha entrega
+                                                </label>
+                                                <input type="date"
+                                                    id='fecha-entrega'                                               
+                                                    className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                                                    value={fechaEntrega}
+                                                    onChange={e => setFechaEntrega(e.target.value)}
+                                                />
+                                            </div>
+
 
                                             <div className='mb-5'>
                                                 <label htmlFor="prioridad" className="text-gray-700 uppercase font-bold text-sm">
