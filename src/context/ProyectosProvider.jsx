@@ -165,6 +165,12 @@ const ProyectosProvider = ({ children }) => {
       const {data} = await clienteAxios.post('/tareas', tarea, config)
       console.log(data);
 
+      //Agrega una tarea al state despues de almacenar()...proyecto toma copia) - 
+        const proyectoActualizado= {...proyecto}
+        proyectoActualizado.tareas = [...proyecto.tareas, data]
+        setProyecto(proyectoActualizado)
+        setAlerta({})
+        setModalFormularioTarea(false)
       
   //SOCKET ==========================
       socket.emit('nueva tarea', data)      
